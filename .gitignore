@@ -1,0 +1,16 @@
+/accounts/HELP.md
+accounts/build
+accounts/.gradle
+accounts/.idea
+
+/cards/.mvn
+cards/HELP.md
+cards/target
+cards/mvnw.cmd
+cards/mvnw
+
+/loans/.mvn
+loans/HELP.md
+loans/target
+loans/mvnw.cmd
+loans/mvnw
