@@ -1,7 +1,8 @@
 /accounts/HELP.md
 accounts/build
-accounts/.gradle
+accounts/.gradle/
 accounts/.idea
+/accounts/.gradle/7.6.1/
 
 /cards/.mvn
 cards/HELP.md
@@ -14,3 +15,9 @@ loans/HELP.md
 loans/target
 loans/mvnw.cmd
 loans/mvnw
+
+/configServer/.mvn
+configServer/HELP.md
+configServer/target
+configServer/mvnw.cmd
+configServer/mvnw

@@ -1,0 +1,11 @@
+accounts:
+  mailDetails:
+    from: dev-accounts@sampleBank.com
+    port: '9000'
+    subject: Your Account Details from SampleBank dev Environment
+    hostName: default-accounts@sampleBank.com
+  build-version: '3'
+  activeBranches[2]: Nepalgunj
+  activeBranches[1]: Pokhara
+  msg: Welcome to the SampleBank Accounts dev application
+  activeBranches[0]: Kathmandu

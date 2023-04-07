@@ -1,0 +1,11 @@
+accounts:
+  mailDetails:
+    from: prod-accounts@sampleBank.com
+    port: '9000'
+    subject: Your Account Details from Eazy Bank Prod Environment
+    hostName: default-accounts@sampleBank.com
+  build-version: '3'
+  activeBranches[0]: Kathmandu
+  activeBranches[1]: Pokhara
+  activeBranches[2]: Nepalgunj
+  msg: Welcome to the SampleBank Accounts Default application
