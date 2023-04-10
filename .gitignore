@@ -21,3 +21,9 @@ configServer/HELP.md
 configServer/target
 configServer/mvnw.cmd
 configServer/mvnw
+
+/eurekaserver/.mvn
+eurekaserver/HELP.md
+eurekaserver/target
+eurekaserver/mvnw.cmd
+eurekaserver/mvnw
