@@ -1,0 +1,72 @@
+version: "3.8"
+
+services:
+
+  configserver:
+    image: yubrajpokharel/configserver:latest
+    mem_reservation: 700m
+    ports:
+      - "8088:8088"
+    networks:
+      - simplebank
+
+  accounts:
+    image: yubrajpokharel/account:latest
+    mem_reservation: 700m
+    ports:
+      - "8085:8085"
+    networks:
+      - simplebank
+    depends_on:
+      - configserver
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+    environment:
+      - SPRING_PROFILES_ACTIVE=default
+      - SPRING_CONFIG_IMPORT=configserver:http://configserver:8088/
+
+  cards:
+    image: yubrajpokharel/cards:latest
+    mem_reservation: 700m
+    ports:
+      - "8087:8087"
+    networks:
+      - simplebank
+    depends_on:
+      - configserver
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+    environment:
+      - SPRING_PROFILES_ACTIVE=default
+      - SPRING_CONFIG_IMPORT=configserver:http://configserver:8088/
+
+  loans:
+    image: yubrajpokharel/loans:latest
+    mem_reservation: 700m
+    ports:
+      - "8086:8086"
+    networks:
+      - simplebank
+    depends_on:
+      - configserver
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+    environment:
+      - SPRING_PROFILES_ACTIVE=default
+      - SPRING_CONFIG_IMPORT=configserver:http://configserver:8088/
+
+networks:
+  simplebank:
+    driver: bridge
