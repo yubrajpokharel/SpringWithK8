@@ -10,11 +10,11 @@ services:
     networks:
       - simplebank
 
-  accounts:
-    image: yubrajpokharel/account:latest
+  eurekaserver:
+    image: yubrajpokharel/eurekaserver:latest
     mem_reservation: 700m
     ports:
-      - "8085:8085"
+      - "8089:8089"
     networks:
       - simplebank
     depends_on:
@@ -28,6 +28,28 @@ services:
     environment:
       - SPRING_PROFILES_ACTIVE=default
       - SPRING_CONFIG_IMPORT=configserver:http://configserver:8088/
+
+
+  accounts:
+    image: yubrajpokharel/account:latest
+    mem_reservation: 700m
+    ports:
+      - "8085:8085"
+    networks:
+      - simplebank
+    depends_on:
+      - configserver
+      - eurekaserver
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+    environment:
+      - SPRING_PROFILES_ACTIVE=default
+      - SPRING_CONFIG_IMPORT=configserver:http://configserver:8088/
+      - eureka.client.serviceUrl.defaultZone:http://eurekaserver:8089/eureka/
 
   cards:
     image: yubrajpokharel/cards:latest
@@ -38,6 +60,7 @@ services:
       - simplebank
     depends_on:
       - configserver
+      - eurekaserver
     deploy:
       restart_policy:
         condition: on-failure
@@ -47,6 +70,7 @@ services:
     environment:
       - SPRING_PROFILES_ACTIVE=default
       - SPRING_CONFIG_IMPORT=configserver:http://configserver:8088/
+      - eureka.client.serviceUrl.defaultZone:http://eurekaserver:8089/eureka/
 
   loans:
     image: yubrajpokharel/loans:latest
@@ -57,6 +81,7 @@ services:
       - simplebank
     depends_on:
       - configserver
+      - eurekaserver
     deploy:
       restart_policy:
         condition: on-failure
@@ -66,6 +91,7 @@ services:
     environment:
       - SPRING_PROFILES_ACTIVE=default
       - SPRING_CONFIG_IMPORT=configserver:http://configserver:8088/
+      - eureka.client.serviceUrl.defaultZone:http://eurekaserver:8089/eureka/
 
 networks:
   simplebank:
